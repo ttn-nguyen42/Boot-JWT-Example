@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.file.AccessDeniedException;
 
 @ControllerAdvice
 public class RestApiErrorHandler extends Utils {
@@ -58,5 +59,11 @@ public class RestApiErrorHandler extends Utils {
     public ResponseEntity<ExceptionResult> handleInsufficientAuthentication(InsufficientAuthentication e, HttpServletRequest req) {
         ExceptionResult res = new ExceptionResult(getTimestamp(), req.getRequestURI(), e.getMessage(), HttpStatus.UNAUTHORIZED.getReasonPhrase(), HttpStatus.UNAUTHORIZED.value());
         return new ResponseEntity<>(res, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ExceptionResult> handleAccessDenied(AccessDeniedException e, HttpServletRequest req) {
+        ExceptionResult res = new ExceptionResult(getTimestamp(), req.getRequestURI(), "Not allowed", HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN.value());
+        return new ResponseEntity<>(res, HttpStatus.FORBIDDEN);
     }
 }
