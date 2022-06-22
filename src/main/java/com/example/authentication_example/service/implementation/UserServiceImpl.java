@@ -12,6 +12,7 @@ import com.example.authentication_example.repository.UserRepository;
 import com.example.authentication_example.repository.UserTokenRepository;
 import com.example.authentication_example.service.UserService;
 import com.example.authentication_example.utils.RandomHolder;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -90,8 +91,7 @@ public class UserServiceImpl implements UserService {
         String token = tokenManager.create(User.builder()
                                                .username(user.getEmail())
                                                .password(user.getPassword())
-                                               .authorities(Objects.nonNull(user.getRole()) ? user.getRole()
-                                                                                                  .name() : "")
+                                               .authorities(Objects.nonNull(user.getRole()) ? user.getRole().name() : "")
                                                .build());
         SignedInUser signedInUser = new SignedInUser();
         signedInUser.setId(user.getId());
