@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface UserTokenRepository extends CrudRepository<UserTokenEntity, Long> {
     Optional<UserTokenEntity> findByRefreshToken(String refreshToken);
-    Optional<UserTokenEntity> deleteByUserId(Long id);
+    void deleteByUserId(Long id);
 }

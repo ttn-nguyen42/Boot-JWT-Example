@@ -9,6 +9,7 @@ import com.example.authentication_example.entity.UserEntity;
 import com.example.authentication_example.exception.InsufficientAuthentication;
 import com.example.authentication_example.exception.InvalidRefreshToken;
 import com.example.authentication_example.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +23,7 @@ public class AuthController implements AuthApi {
     private final UserService service;
     private final PasswordEncoder encoder;
 
+    @Autowired
     public AuthController(UserService service, PasswordEncoder encoder) {
         this.service = service;
         this.encoder = encoder;
@@ -33,7 +35,7 @@ public class AuthController implements AuthApi {
         if (createdUser.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(createdUser.get());
         }
-        throw new InsufficientAuthentication("Unauthorized");
+        throw new InsufficientAuthentication("Insufficient info");
     }
 
     @Override

@@ -5,7 +5,6 @@ public class ExceptionResult {
     private String message;
     private String error;
     private Integer code;
-
     private String path;
 
     public ExceptionResult(String timestamp, String path, String message, String error, Integer code) {
@@ -15,6 +14,8 @@ public class ExceptionResult {
         this.error = error;
         this.code = code;
     }
+
+    public ExceptionResult() {}
 
     public String getTimestamp() {
         return timestamp;
@@ -46,5 +47,16 @@ public class ExceptionResult {
 
     public void setCode(Integer code) {
         this.code = code;
+    }
+
+    @Override
+    public String toString() {
+        return "ExceptionResult{" +
+                "timestamp='" + timestamp + '\'' +
+                ", message='" + message + '\'' +
+                ", error='" + error + '\'' +
+                ", code=" + code +
+                ", path='" + path + '\'' +
+                '}';
     }
 }
